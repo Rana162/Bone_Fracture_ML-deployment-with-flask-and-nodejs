@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bone Fracture Detection</title>
+</head>
+<body>
+    <h1 style="text-align: center;">Bone Fracture Detection</h1>
+    <h2 style="text-align: center;">Hello</h2> <!-- Corrected closing tag -->
+    <h3 style="text-align: center;">Form</h3>
+    <form id="predictionForm" action="/predict" method="post" enctype="multipart/form-data">
+        <div class="text-align">
+            <label for="name">Name:</label><br>
+            <input type="text" id="name" name="name"><br><br>
+            <label for="age">Age:</label><br>
+            <input type="number" id="age" name="age"><br><br>
+            <label for="city">City:</label><br>
+            <input type="text" id="city" name="city"><br><br>
+            <label for="file">Choose an image:</label><br>
+            <input type="file" id="image" name="file" accept="image/*">
+            <input type="submit" value="Predict" onclick="submitForm(event)">
+            <div id="predictionResult"></div>
+        </div>
+    </form>
+
+
+    <script>
+        function submitForm(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Get form data
+            var formData = new FormData(document.getElementById("predictionForm"));
+
+            // Send form data via AJAX
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/predict", true);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    // Display prediction result
+                    document.getElementById("predictionResult").innerHTML = xhr.responseText;
+                } else {
+                    // Handle error
+                    console.error("Error:", xhr.statusText);
+                }
+            };
+            xhr.onerror = function () {
+                console.error("Network error");
+            };
+            xhr.send(formData);
+        }
+    </script>
+</body>
+</html>

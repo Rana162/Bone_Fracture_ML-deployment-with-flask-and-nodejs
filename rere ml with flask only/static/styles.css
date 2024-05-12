@@ -1,0 +1,12 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: rgba(74, 109, 139);
+    background-image: url('/static/photo_5888786860652741917_x.jpg'); 
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.text-align {
+    text-align: center;
+}
